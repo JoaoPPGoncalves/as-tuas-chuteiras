@@ -1,5 +1,7 @@
 # As Tuas Chuteiras — catálogo online
 
+🌐 **Site:** https://joaoppgoncalves.github.io/as-tuas-chuteiras/
+
 Site estático (telemóvel e computador) com o catálogo completo de chuteiras do fornecedor,
 traduzido para português, com filtros por **piso, marca, modelo e tamanho**, e encomenda
 por mensagem no Instagram [@as_tuas_chuteiras](https://www.instagram.com/as_tuas_chuteiras/).
@@ -41,8 +43,14 @@ Basta abrir o `index.html` no browser.
 
 ## Publicar
 
-É um site estático, por isso qualquer alojamento grátis serve: Netlify, Cloudflare Pages ou GitHub Pages.
-Faz upload da pasta inteira, sem a `.cache/` e sem a `scripts/`.
+O site está no GitHub Pages (ramo `main`, pasta raiz). Depois de atualizar o catálogo:
+
+```bash
+python3 scripts/scrape.py
+git add -A && git commit -m "Atualizar catálogo" && git push
+```
+
+Em 1–2 minutos o site fica atualizado.
 
 ## Siglas de piso
 

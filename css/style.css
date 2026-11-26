@@ -6,8 +6,8 @@
   --line: #2a312d;
   --text: #f2f5f3;
   --muted: #9aa59f;
-  --accent: #39e27d;
-  --accent-ink: #062611;
+  --accent: #e3b04b;
+  --accent-ink: #1c1303;
   --hot: #ffcc33;
   --danger: #ff6b5e;
   --radius: 16px;
@@ -53,7 +53,7 @@ svg { width: 1.15em; height: 1.15em; fill: currentColor; flex: none; }
 }
 .btn:active { transform: scale(.97); }
 .btn--primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
-.btn--primary:hover { background: #5cf095; }
+.btn--primary:hover { background: #f0c46a; }
 .btn--ghost { background: transparent; }
 .btn--ghost:hover { border-color: var(--muted); }
 .btn--big { min-height: 54px; width: 100%; font-size: 17px; }
@@ -79,7 +79,7 @@ svg { width: 1.15em; height: 1.15em; fill: currentColor; flex: none; }
 }
 .topbar__in { display: flex; align-items: center; justify-content: space-between; height: 64px; }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); }
-.brand__logo { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; background: #000; border: 2px solid var(--accent); }
+.brand__logo { width: 50px; height: 50px; border-radius: 10px; object-fit: cover; background: #000; }
 .brand__name { font: 600 15px/1 var(--head); text-transform: uppercase; letter-spacing: .06em; }
 .brand__name b { font-size: 21px; font-weight: 800; color: var(--accent); letter-spacing: .02em; }
 
@@ -87,7 +87,7 @@ svg { width: 1.15em; height: 1.15em; fill: currentColor; flex: none; }
 .hero {
   padding: 40px 0 28px;
   background:
-    radial-gradient(800px 300px at 80% -10%, rgba(57, 226, 125, .18), transparent 70%),
+    radial-gradient(800px 300px at 80% -10%, rgba(227, 176, 75, .16), transparent 70%),
     repeating-linear-gradient(90deg, rgba(255,255,255,.018) 0 60px, transparent 60px 120px);
   border-bottom: 1px solid var(--line);
 }
