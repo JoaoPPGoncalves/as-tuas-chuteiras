@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <rect width="120" height="120" rx="60" fill="#0c0f0d"/>
+  <circle cx="60" cy="60" r="54" fill="none" stroke="#39e27d" stroke-width="4"/>
+  <path d="M24 74c0-6 4-9 10-10l20-3 12-14c3-3 7-4 10-1l6 6c2 2 5 3 8 3h4c4 0 6 3 6 6v6c0 4-3 7-7 7H31c-4 0-7-0-7 0z" fill="#39e27d"/>
+  <g fill="#0c0f0d"><circle cx="38" cy="80" r="3"/><circle cx="54" cy="80" r="3"/><circle cx="76" cy="80" r="3"/><circle cx="92" cy="80" r="3"/></g>
+  <text x="60" y="104" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="15" fill="#f2f5f3" letter-spacing="1">ATC</text>
+</svg>
