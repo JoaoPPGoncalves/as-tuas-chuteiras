@@ -7,10 +7,14 @@
   <meta name="description" content="Catálogo completo de chuteiras: Nike, Adidas, Puma, Mizuno e mais. Filtra por marca, piso e tamanho e encomenda pelo Instagram.">
   <meta name="theme-color" content="#0c0f0d">
   <meta property="og:title" content="As Tuas Chuteiras — Catálogo">
-  <meta property="og:description" content="Escolhe a tua chuteira e fala connosco no Instagram.">
+  <meta property="og:description" content="Escolhe a tua chuteira e encomenda pelo Instagram.">
   <meta property="og:image" content="assets/logo.jpg">
   <link rel="icon" href="assets/logo.jpg" type="image/jpeg">
   <link rel="apple-touch-icon" href="assets/logo.jpg">
+  <script>
+    // saved theme before first paint (no flash)
+    try { var t = localStorage.getItem("atc-theme"); if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -19,63 +23,85 @@
 <body>
   <header class="topbar">
     <div class="wrap topbar__in">
-      <a class="brand" href="#" aria-label="As Tuas Chuteiras — início">
+      <a class="brand" href="./" aria-label="As Tuas Chuteiras — início">
         <img class="brand__logo" src="assets/logo.jpg" alt="" onerror="this.onerror=null;this.src='assets/logo.svg'">
         <span class="brand__name">As Tuas<br><b>Chuteiras</b></span>
       </a>
-      <a class="btn btn--ig" href="https://www.instagram.com/as_tuas_chuteiras/" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4 6.2 6.2 0 000-12.4zM12 16a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.9 1.4 1.4 0 000-2.9z"/></svg>
-        <span>@as_tuas_chuteiras</span>
-      </a>
+      <div class="topbar__right">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Mudar modo claro/escuro" title="Modo claro / escuro">
+          <svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.7 14.6A8.5 8.5 0 019.4 3.3a8.5 8.5 0 1011.3 11.3z"/></svg>
+          <svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7a5 5 0 110 10 5 5 0 010-10zm-1-6h2v3h-2zm0 19h2v3h-2zM1 11h3v2H1zm19 0h3v2h-3zM4.2 5.6l1.4-1.4 2.1 2.1-1.4 1.4zm12.1 12.1l1.4-1.4 2.1 2.1-1.4 1.4zM4.2 18.4l2.1-2.1 1.4 1.4-2.1 2.1zM16.3 6.3l2.1-2.1 1.4 1.4-2.1 2.1z"/></svg>
+        </button>
+        <a class="btn btn--ig" href="https://www.instagram.com/as_tuas_chuteiras/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 3.2-1.7 4.8-4.9 4.9-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.8C2.4 3.9 3.9 2.4 7.2 2.3 8.4 2.2 8.8 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 2.7.3.3 2.7.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.2 4.4 2.6 6.8 7 7 1.2.1 1.6.1 4.9.1s3.7 0 4.9-.1c4.4-.2 6.8-2.6 7-7 .1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.2-4.4-2.6-6.8-7-7C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4 6.2 6.2 0 000-12.4zM12 16a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.9 1.4 1.4 0 000-2.9z"/></svg>
+          <span>@as_tuas_chuteiras</span>
+        </a>
+      </div>
     </div>
   </header>
 
   <section class="hero">
-    <div class="wrap">
-      <p class="hero__kicker">Catálogo completo</p>
-      <h1 class="hero__title">Escolhe a tua chuteira.<br><span>Nós tratamos do resto.</span></h1>
-      <p class="hero__text">Vê todos os modelos, filtra por marca, piso e tamanho e envia-nos o par que queres pelo Instagram.</p>
+    <div class="wrap hero__in">
+      <div>
+        <p class="hero__kicker">Catálogo completo</p>
+        <h1 class="hero__title">Escolhe a tua <span>chuteira</span></h1>
+        <p class="hero__text">Filtra por marca, piso e tamanho e pede o teu par pelo Instagram.</p>
+      </div>
       <div class="hero__stats" id="stats"></div>
     </div>
   </section>
+
+  <div class="wrap">
+    <div class="piso" id="piso" aria-roledescription="carrossel" aria-label="Que piso escolher?">
+      <svg class="piso__sole" id="pisoSole" viewBox="0 0 230 92" aria-hidden="true"></svg>
+      <div class="piso__text" aria-live="polite">
+        <p class="piso__kicker">Que piso escolher?</p>
+        <p class="piso__title"><b id="pisoCode"></b> <span id="pisoLabel"></span></p>
+        <p class="piso__help" id="pisoHelp"></p>
+      </div>
+      <div class="piso__side">
+        <button class="link" id="pisoGo" type="button"></button>
+        <div class="piso__dots" id="pisoDots"></div>
+      </div>
+      <span class="piso__bar" id="pisoBar"></span>
+    </div>
+  </div>
 
   <main class="wrap layout">
     <aside class="filters" id="filters" aria-label="Filtros">
       <div class="filters__head">
         <h2>Filtros</h2>
-        <button class="icon-btn filters__close" id="closeFilters" aria-label="Fechar filtros">✕</button>
+        <button class="icon-btn" id="closeFilters" type="button" aria-label="Fechar filtros">✕</button>
       </div>
       <div class="filters__body">
-        <div class="fgroup">
-          <h3>Tipo de piso <button class="link" data-open-guide>O que é?</button></h3>
-          <div class="chips" id="fSurface"></div>
-        </div>
-        <div class="fgroup">
-          <h3>Marca</h3>
-          <div class="chips" id="fBrand"></div>
-        </div>
-        <div class="fgroup">
-          <h3>Modelo</h3>
-          <div class="chips" id="fLine"></div>
-        </div>
-        <div class="fgroup">
-          <h3>Tamanho</h3>
+        <details class="acc" open>
+          <summary>Tipo de piso <em id="nSurface"></em></summary>
+          <div class="ptiles" id="fSurface"></div>
+        </details>
+        <details class="acc" open>
+          <summary>Marca <em id="nBrand"></em></summary>
+          <div class="opts" id="fBrand"></div>
+        </details>
+        <details class="acc" open>
+          <summary>Modelo <em id="nLine"></em></summary>
+          <div class="opts" id="fLine"></div>
+        </details>
+        <details class="acc" open>
+          <summary>Tamanho <em id="nSize"></em></summary>
           <div class="sizes" id="fSize"></div>
-        </div>
-        <div class="fgroup">
-          <h3>Tipo</h3>
-          <div class="chips" id="fKind"></div>
-        </div>
-        <div class="fgroup">
-          <h3>Mostrar só</h3>
-          <label class="toggle"><input type="checkbox" id="fNew"> <span>Novidades</span></label>
-          <label class="toggle"><input type="checkbox" id="fVideo"> <span>Com vídeo</span></label>
-          <label class="toggle"><input type="checkbox" id="fLast"> <span>Últimos pares</span></label>
-        </div>
+        </details>
+        <details class="acc">
+          <summary>Altura do calçado <em id="nHeight"></em></summary>
+          <div class="opts" id="fHeight"></div>
+        </details>
+        <details class="acc">
+          <summary>Atacadores <em id="nLaces"></em></summary>
+          <div class="opts" id="fLaces"></div>
+        </details>
       </div>
       <div class="filters__foot">
-        <button class="btn btn--ghost" id="clearFilters">Limpar</button>
-        <button class="btn btn--primary" id="applyFilters">Ver <span id="applyCount">0</span> chuteiras</button>
+        <button class="btn btn--ghost" id="clearFilters" type="button">Limpar</button>
+        <button class="btn btn--primary" id="applyFilters" type="button">Ver <span id="applyCount">0</span> chuteiras</button>
       </div>
     </aside>
     <div class="scrim" id="scrim" hidden></div>
@@ -84,14 +110,15 @@
       <div class="toolbar">
         <label class="search">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 2a8 8 0 016.3 12.9l5.4 5.4-1.4 1.4-5.4-5.4A8 8 0 1110 2zm0 2a6 6 0 100 12 6 6 0 000-12z"/></svg>
-          <input id="q" type="search" placeholder="Procurar: Mercurial, Predator, F50…" autocomplete="off">
+          <input id="q" type="search" placeholder="Procurar: Mercurial, Predator, F50…" autocomplete="off" enterkeyhint="search">
         </label>
         <div class="toolbar__row">
-          <button class="btn btn--ghost btn--filters" id="openFilters">
+          <button class="btn btn--ghost btn--filters" id="openFilters" type="button">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v2H3zm4 6h10v2H7zm3 6h4v2h-4z"/></svg>
-            Filtros <span class="badge" id="filterBadge" hidden></span>
+            <span id="filtersLabel">Filtros</span> <span class="badge" id="filterBadge" hidden></span>
           </button>
           <p class="count" id="count"></p>
+          <div class="view" id="view" role="group" aria-label="Chuteiras por linha"></div>
           <select id="sort" aria-label="Ordenar">
             <option value="recent">Mais recentes</option>
             <option value="brand">Marca (A–Z)</option>
@@ -104,26 +131,23 @@
       <div class="grid" id="grid"></div>
       <div class="empty" id="empty" hidden>
         <p><b>Nenhuma chuteira encontrada.</b><br>Experimenta tirar alguns filtros.</p>
-        <button class="btn btn--primary" id="emptyClear">Limpar filtros</button>
+        <button class="btn btn--primary" id="emptyClear" type="button">Limpar filtros</button>
       </div>
       <div id="sentinel" class="sentinel"></div>
     </section>
   </main>
 
-  <section class="guide wrap" id="guide">
-    <h2>Que piso escolher?</h2>
-    <p class="guide__lead">A sigla na chuteira indica o tipo de terreno para que a sola foi feita.</p>
-    <div class="guide__grid" id="guideGrid"></div>
-    <p class="guide__more" id="sizeChartLink" hidden><a href="assets/tabela-tamanhos.webp" target="_blank" rel="noopener">📏 Ver tabela de tamanhos</a></p>
-  </section>
-
   <footer class="footer">
     <div class="wrap footer__in">
       <img class="brand__logo" src="assets/logo.jpg" alt="" onerror="this.onerror=null;this.src='assets/logo.svg'">
-      <div>
+      <div class="footer__text">
         <p><b>As Tuas Chuteiras</b></p>
         <p>Encomendas e dúvidas: <a href="https://ig.me/m/as_tuas_chuteiras" target="_blank" rel="noopener">mensagem no Instagram</a></p>
         <p class="muted" id="updated"></p>
+      </div>
+      <div class="footer__links">
+        <button class="link" type="button" data-size-guide>📏 Guia de tamanhos</button>
+        <a class="link" href="#piso">Que piso escolher?</a>
       </div>
     </div>
   </footer>
@@ -131,39 +155,57 @@
   <!-- Product detail -->
   <dialog class="modal" id="modal" aria-labelledby="mTitle">
     <div class="modal__box">
-      <button class="icon-btn modal__close" id="mClose" aria-label="Fechar">✕</button>
+      <button class="icon-btn modal__close" id="mClose" type="button" aria-label="Fechar">✕</button>
       <div class="modal__media">
         <div class="slides" id="mSlides"></div>
-        <button class="nav nav--prev" id="mPrev" aria-label="Anterior">‹</button>
-        <button class="nav nav--next" id="mNext" aria-label="Seguinte">›</button>
+        <button class="nav nav--prev" id="mPrev" type="button" aria-label="Anterior">‹</button>
+        <button class="nav nav--next" id="mNext" type="button" aria-label="Seguinte">›</button>
         <div class="dots" id="mDots"></div>
       </div>
       <div class="modal__info">
         <p class="m-brand" id="mBrand"></p>
         <h2 class="m-title" id="mTitle"></h2>
         <div class="m-badges" id="mBadges"></div>
-        <p class="m-desc" id="mDesc"></p>
-        <dl class="specs" id="mSpecs"></dl>
+        <div class="tiles" id="mTiles"></div>
+        <div class="feats" id="mFeats"></div>
         <div class="m-sizes">
-          <h3>Escolhe o teu tamanho <span class="muted">(EU)</span></h3>
+          <h3><span>Escolhe o teu tamanho <span class="muted">(EU)</span></span><button class="link" type="button" data-size-guide>Guia de tamanhos</button></h3>
           <div class="sizes sizes--pick" id="mSizes"></div>
         </div>
         <div class="m-cta">
-          <button class="btn btn--primary btn--big" id="mOrder">
+          <button class="btn btn--primary btn--big" id="mOrder" type="button">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.4 2 2 6.1 2 11.3c0 2.9 1.4 5.5 3.7 7.2V22l3.4-1.9c.9.3 1.9.4 2.9.4 5.6 0 10-4.1 10-9.2S17.6 2 12 2zm1 12.4l-2.5-2.7-5 2.7 5.5-5.8 2.6 2.7 4.9-2.7-5.5 5.8z"/></svg>
-            Pedir no Instagram
+            <span id="mOrderLabel">Pedir no Instagram</span>
           </button>
-          <p class="m-hint" id="mHint">Copiamos a mensagem com o modelo, o tamanho e a referência. Só tens de a colar na conversa.</p>
-          <button class="link m-share" id="mShare">🔗 Partilhar esta chuteira</button>
+          <button class="icon-btn m-share" id="mShare" type="button" aria-label="Partilhar esta chuteira" title="Partilhar">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 16.1c-.8 0-1.5.3-2 .8l-7.1-4.2c.1-.2.1-.5.1-.7s0-.5-.1-.7L16 7.2c.5.5 1.2.8 2 .8 1.7 0 3-1.3 3-3s-1.3-3-3-3-3 1.3-3 3c0 .2 0 .5.1.7L8 9.8C7.5 9.3 6.8 9 6 9c-1.7 0-3 1.3-3 3s1.3 3 3 3c.8 0 1.5-.3 2-.8l7.1 4.2c-.1.2-.1.4-.1.6 0 1.6 1.3 2.9 2.9 2.9s2.9-1.3 2.9-2.9-1.2-2.9-2.8-2.9z"/></svg>
+          </button>
         </div>
-        <p class="muted m-ref" id="mRef"></p>
       </div>
+    </div>
+  </dialog>
+
+  <!-- Size guide -->
+  <dialog class="sg" id="sg" aria-labelledby="sgTitle">
+    <div class="sg__box">
+      <div class="sg__head">
+        <div>
+          <h2 id="sgTitle">Guia de tamanhos</h2>
+          <p class="muted">Tamanhos europeus (EU) e equivalências por marca.</p>
+        </div>
+        <button class="icon-btn" id="sgClose" type="button" aria-label="Fechar">✕</button>
+      </div>
+      <nav class="sg__tabs" id="sgTabs" aria-label="Marca"></nav>
+      <div class="sg__groups" id="sgGroups"></div>
+      <div class="sg__body" id="sgBody"></div>
+      <p class="sg__note" id="sgNote"></p>
     </div>
   </dialog>
 
   <div class="toast" id="toast" role="status" hidden></div>
 
   <script src="data/catalog.js"></script>
+  <script src="js/sizes.js"></script>
   <script src="js/app.js"></script>
 </body>
 </html>
