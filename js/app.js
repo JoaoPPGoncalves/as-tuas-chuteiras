@@ -401,7 +401,8 @@
     const groups = Object.keys(data.groups);
     if (!groups.includes(sgGroup)) sgGroup = groups[0];
     $("#sgTabs").innerHTML = SG_TABS.map((k) => `<button type="button" data-v="${k}" aria-pressed="${k === sgBrand}">${k === "Medidas" ? "Outras marcas" : k}</button>`).join("");
-    $("#sgGroups").innerHTML = groups.length > 1 ? groups.map((g) => `<button type="button" data-v="${g}" aria-pressed="${g === sgGroup}">${g}</button>`).join("") : "";
+    // always show the group row (e.g. "Adulto") so the popup keeps the same layout for every brand
+    $("#sgGroups").innerHTML = groups.map((g) => `<button type="button" data-v="${g}" aria-pressed="${g === sgGroup}">${g}</button>`).join("");
     const tb = data.groups[sgGroup];
     $("#sgBody").innerHTML = `<table><thead><tr>${tb.head.map((h) => `<th scope="col">${h}</th>`).join("")}</tr></thead>
       <tbody>${tb.rows.map((r) => `<tr class="${sgPick && parseFloat(r[0]) === sgPick && !/[⅓⅔]/.test(r[0]) ? "is-pick" : ""}">${r.map((c) => `<td>${c}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
