@@ -289,8 +289,8 @@
 
     // in the detail the video always comes first
     const slides = [];
-    if (i.video) slides.push(`<div class="slide"><video src="${esc(i.video)}" poster="${img(i, 0)}" muted autoplay loop playsinline preload="auto" disablepictureinpicture></video></div>`);
-    for (let n = 0; n < i.photos; n++) slides.push(`<div class="slide"><img src="${img(i, n)}" alt="${esc(i.model)} — foto ${n + 1}" ${n ? 'loading="lazy"' : ""}></div>`);
+    if (i.video) slides.push(`<div class="slide"><video src="${esc(i.video)}" poster="${img(i, 0)}" muted autoplay loop playsinline webkit-playsinline preload="auto" disablepictureinpicture disableremoteplayback></video></div>`);
+    for (let n = 0; n < i.photos; n++) slides.push(`<div class="slide"><img src="${img(i, n)}" alt="${esc(i.model)} — foto ${n + 1}" draggable="false" ${n ? 'loading="lazy"' : ""}></div>`);
     $("#mSlides").innerHTML = slides.join("");
     $("#mSlides").scrollLeft = 0;
     $("#mDots").innerHTML = slides.map((_, n) => `<button type="button" aria-label="Ir para ${n + 1}" class="${n === 0 ? "on" : ""}" data-n="${n}"></button>`).join("");
@@ -311,6 +311,7 @@
     ].map(([k, val]) => `<div class="tile"><span>${k}</span><b>${val}</b></div>`).join("");
     $("#mFeats").innerHTML = i.features.map((f) => `<span>${esc(f)}</span>`).join("");
     renderSizePick();
+    setSizeList(false);
 
     if (!modal.open) { modal.showModal(); document.body.classList.add("lock"); }
     $(".modal__box").scrollTop = 0;
@@ -318,17 +319,41 @@
     document.title = `${fullName(i)} — As Tuas Chuteiras`;
   }
 
+  // size picker: a dropdown with a scrollable list (EU size + foot length in cm when the guide has it)
+  function cmFor(brand, z) {
+    const G = (window.SIZE_GUIDE || {})[brand === "Supreme x Nike" ? "Nike" : brand];
+    if (!G) return null;
+    for (const g of Object.values(G.groups)) {
+      const k = g.head.indexOf("CM");
+      if (k < 0) continue;
+      const row = g.rows.find((r) => !/[⅓⅔]/.test(r[0]) && parseFloat(r[0]) === z);
+      if (row) return row[k];
+    }
+    return null;
+  }
+  function setSizeList(open) {
+    $("#mSizes").hidden = !open;
+    $("#mSizeBtn").setAttribute("aria-expanded", open);
+    $("#mSizePick").classList.toggle("open", open);
+    if (open) { const sel = $("#mSizes [aria-selected='true']"); if (sel) sel.scrollIntoView({ block: "center" }); }
+  }
   function renderSizePick() {
     const i = current;
-    $("#mSizes").innerHTML = i.sizes.length
-      ? i.sizes.map((z) => `<button type="button" class="size" data-value="${z}" aria-pressed="${pickedSize === z}">${z}</button>`).join("")
-      : `<p class="muted" style="margin:0">Indica o teu tamanho na mensagem.</p>`;
-    $("#mOrderLabel").textContent = pickedSize ? `Pedir tamanho ${pickedSize} no Instagram` : "Pedir no Instagram";
+    $("#mSizePick").hidden = !i.sizes.length;
+    $("#mSizes").innerHTML = i.sizes.map((z) => {
+      const cm = cmFor(i.brand, z);
+      return `<button type="button" class="sizepick__opt" role="option" data-value="${z}" aria-selected="${pickedSize === z}"><b>${z}</b>${cm ? `<span>${cm} cm</span>` : ""}</button>`;
+    }).join("");
+    $("#mSizeVal").innerHTML = pickedSize ? `Tamanho <b>${pickedSize}</b>` : "Escolhe o tamanho";
+    $("#mSizePick").classList.toggle("has-value", !!pickedSize);
+    $("#mOrderLabel").textContent = pickedSize ? `Pedir tamanho ${pickedSize}` : "Pedir tamanho";
   }
+  $("#mSizeBtn").addEventListener("click", () => setSizeList($("#mSizes").hidden));
   $("#mSizes").addEventListener("click", (e) => {
-    const b = e.target.closest(".size"); if (!b) return;
-    const z = +b.dataset.value; pickedSize = pickedSize === z ? null : z; renderSizePick();
+    const b = e.target.closest(".sizepick__opt"); if (!b) return;
+    pickedSize = +b.dataset.value; renderSizePick(); setSizeList(false);
   });
+  document.addEventListener("click", (e) => { if (!$("#mSizes").hidden && !e.target.closest("#mSizePick")) setSizeList(false); });
 
   function closeProduct(fromHistory = false) {
     if (!modal.open) return;
@@ -352,16 +377,23 @@
     $$("#mDots button").forEach((d, k) => d.classList.toggle("on", k === n));
   }, { passive: true });
 
+  // greeting by the customer's local time
+  function greeting(d = new Date()) {
+    const h = d.getHours();
+    return h >= 5 && h < 12 ? "Bom dia" : h >= 12 && h < 20 ? "Boa tarde" : "Boa noite";
+  }
   function orderMessage(i) {
+    const surf = i.surfaces.length ? `, piso ${i.surfaces.map((s) => `${s} (${surfLabel(s).toLowerCase()})`).join(" / ")}` : "";
+    const size = pickedSize ? `, no tamanho ${pickedSize}` : "";
+    const link = location.origin && location.origin !== "null" ? `${location.origin}${location.pathname}#/c/${i.id}` : "";
     return [
-      "Olá! 👋 Tenho interesse nesta chuteira:",
-      `• ${fullName(i)}`,
-      i.surfaces.length ? `• Piso: ${i.surfaces.map((s) => `${s} (${surfLabel(s)})`).join(" / ")}` : null,
-      `• Tamanho: ${pickedSize || "?"}`,
-      `• Ref.: ${i.id}`,
-      `• Link: ${location.origin && location.origin !== "null" ? location.origin + location.pathname : ""}#/c/${i.id}`,
-      "Está disponível? Obrigado!",
-    ].filter(Boolean).join("\n");
+      `${greeting()}! Tem disponível a chuteira ${fullName(i)}${surf}${size}?`,
+      "",
+      `Ref.: ${i.id}`,
+      link,
+      "",
+      "Obrigado!",
+    ].filter((l, k, a) => l !== "" || (a[k - 1] !== "" && k < a.length - 1)).join("\n").replace(/\n{3,}/g, "\n\n");
   }
   async function copy(text) {
     try { await navigator.clipboard.writeText(text); return true; } catch (_) { /* fallback */ }
@@ -375,12 +407,13 @@
     if (!current) return;
     if (current.sizes.length && !pickedSize) {
       toast("Escolhe primeiro o teu tamanho 👟");
-      $("#mSizes").scrollIntoView({ behavior: "smooth", block: "center" });
-      $("#mSizes").animate([{ transform: "translateX(0)" }, { transform: "translateX(-6px)" }, { transform: "translateX(6px)" }, { transform: "translateX(0)" }], { duration: 300 });
+      $("#mSizePick").scrollIntoView({ behavior: "smooth", block: "center" });
+      setSizeList(true);
+      $("#mSizeBtn").animate([{ transform: "translateX(0)" }, { transform: "translateX(-6px)" }, { transform: "translateX(6px)" }, { transform: "translateX(0)" }], { duration: 300 });
       return;
     }
     copy(orderMessage(current));
-    toast("Mensagem copiada! Cola-a na conversa do Instagram ✅", 4500);
+    toast("Mensagem pronta e copiada — é só colar e enviar ✅", 5000);
     window.open(IG_DM, "_blank", "noopener");
   });
   $("#mShare").addEventListener("click", async () => {
